@@ -21,19 +21,20 @@ const NavItems = ({ isMobileView = false }: Props) => {
   return (
     <div className="hidden md:flex items-center justify-between w-full md:w-auto">
       <NavigationMenu>
-        <NavigationMenuList>
+        <NavigationMenuList className="text-xs lg:text-sm">
           {navOptions.map((item) => (
             <NavigationMenuItem key={item.id}>
               <NavigationMenuTrigger>{item.label}</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <div className="flex space-x-12 bg-white dark:bg-gray-900 md:w-[450px] lg:w-[600px] p-4">
-                  <div
-                    className={`w-[${item.imageWidth}] h-[${item.imageHeight}] relative`}
-                  >
+                  <div>
                     <Image
                       src={item.image}
                       alt={`TC Blinks ${item.id} fashion`}
-                      fill
+                      width={`${item.imageWidth}`}
+                      height={`${item.imageHeight}`}
+                      priority
+                      className="w-auto h-auto"
                     />
                   </div>
 

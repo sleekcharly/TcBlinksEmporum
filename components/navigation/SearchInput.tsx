@@ -1,18 +1,22 @@
 import React from 'react';
 
-type Props = {};
+type Props = { isMobile?: boolean };
 
-const SearchInput = (props: Props) => {
+const SearchInput = ({ isMobile = false }: Props) => {
   return (
-    <form className="flex-1 max-w-[600px]">
+    <form
+      className={`${!isMobile && 'hidden lg:block max-w-[600px]'} w-full ${
+        isMobile && 'block lg:hidden'
+      }  `}
+    >
       <label
         htmlFor="default-search"
-        className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+        className="mb-2 text-xs font-medium text-gray-900 sr-only dark:text-white"
       >
         Search
       </label>
       <div className="relative">
-        <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+        <div className="absolute inset-y-0 start-0 flex items-center ps-2 pointer-events-none">
           <svg
             className="w-4 h-4 text-gray-500 dark:text-gray-400"
             aria-hidden="true"
@@ -22,9 +26,9 @@ const SearchInput = (props: Props) => {
           >
             <path
               stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
             />
           </svg>
