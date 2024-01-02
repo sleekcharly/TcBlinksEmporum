@@ -39,7 +39,7 @@ const NavItems = ({ isMobileView = false }: Props) => {
 
                   <div className="flex mt-3 text-gray-900 space-x-6 dark:text-white">
                     <div className="flex flex-col space-y-3 align-baseline">
-                      <p>Clothing</p>
+                      <p className="font-semibold text-lg">Clothing</p>
 
                       {item.clothing.map((link) => (
                         <Link
@@ -57,7 +57,7 @@ const NavItems = ({ isMobileView = false }: Props) => {
                       ))}
                     </div>
                     <div className="flex flex-col space-y-3 align-baseline">
-                      <p>Shoes</p>
+                      <p className="font-semibold text-lg">Shoes</p>
 
                       {item.shoes.map((link) => (
                         <Link
