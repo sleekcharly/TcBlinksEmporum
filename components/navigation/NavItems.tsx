@@ -40,7 +40,12 @@ const NavItems = ({ isMobileView = false }: Props) => {
 
                   <div className="flex mt-3 text-gray-900 space-x-6 dark:text-white">
                     <div className="flex flex-col space-y-3 align-baseline">
-                      <p className="font-semibold text-lg">Clothing</p>
+                      <Link
+                        href={`/${item.id}-clothing`}
+                        className="font-semibold text-lg"
+                      >
+                        Clothing
+                      </Link>
 
                       {item.clothing.map((link) => (
                         <Link
@@ -58,7 +63,12 @@ const NavItems = ({ isMobileView = false }: Props) => {
                       ))}
                     </div>
                     <div className="flex flex-col space-y-3 align-baseline">
-                      <p className="font-semibold text-lg">Shoes</p>
+                      <Link
+                        href={`/${item.id}-shoes`}
+                        className="font-semibold text-lg"
+                      >
+                        Shoes
+                      </Link>
 
                       {item.shoes.map((link) => (
                         <Link

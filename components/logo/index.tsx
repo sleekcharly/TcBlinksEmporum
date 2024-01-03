@@ -13,7 +13,7 @@ const Logo = (props: Props) => {
       prefetch={false}
       className="flex items-center cursor-pointer"
     >
-      <div className="flex items-center w-32 h-5 lg:w-48 lg:h-6 xl:w-72 xl:h-14">
+      <div className="flex items-center w-36 h-5 lg:w-48 lg:h-6 xl:w-72 xl:h-14">
         <AspectRatio
           ratio={16 / 9}
           className="flex items-center justify-center"

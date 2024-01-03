@@ -5,6 +5,7 @@ import DarkModeToggle from './DarkModeToggle';
 import CartNotification from './CartNotification';
 import AccountMenu from './AccountMenu';
 import SearchInput from './SearchInput';
+import MobileMenu from './MobileMenu';
 
 type Props = {};
 
@@ -29,6 +30,8 @@ const Header = ({}: Props) => {
             <CartNotification />
             {/* dark  mode toggle */}
             <DarkModeToggle />
+            {/* Mobile Menu */}
+            <MobileMenu />
           </div>
         </div>
 
