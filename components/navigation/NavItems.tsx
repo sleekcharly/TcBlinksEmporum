@@ -13,7 +13,7 @@ import {
 import Link from 'next/link';
 import { AspectRatio } from '@radix-ui/react-aspect-ratio';
 import Image from 'next/image';
-import { navOptions } from '@/utils';
+import { navOptions } from '@/lib';
 
 type Props = { isMobileView?: boolean };
 

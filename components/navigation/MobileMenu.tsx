@@ -1,6 +1,6 @@
 'use client';
 
-import { navOptions } from '@/utils';
+import { navOptions } from '@/lib';
 import { Shirt, ShoppingBag } from 'lucide-react';
 import Link from 'next/link';
 import React, { useState } from 'react';

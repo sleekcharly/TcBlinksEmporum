@@ -28,6 +28,9 @@ yarn-error.log*
 # local env files
 .env*.local
 
+# firebase private key
+tcblinksemporium-firebase-adminsdk-49c2r-fc93dd519e.json
+
 # vercel
 .vercel
 

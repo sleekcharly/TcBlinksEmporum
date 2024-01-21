@@ -2,6 +2,11 @@ import womenPreview from '@previews/women-preview.jpeg';
 import menPreview from '@previews/men-preview.jpg';
 import kidsPreview from '@previews/kids-preview.jpg';
 
+export enum UserRole {
+  ADMIN,
+  USER,
+}
+
 export const navOptions = [
   {
     id: 'women',
