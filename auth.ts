@@ -33,7 +33,7 @@ export const {
       return true;
     },
 
-    async session({ session, token }) {
+    async session({ token, session }) {
       if (token.sub && session.user) {
         session.user.id = token.sub;
 
@@ -82,9 +82,7 @@ export const {
     },
   },
   adapter: FirestoreAdapter(adminDb),
-  session: {
-    strategy: 'jwt',
-  },
+  session: { strategy: 'jwt' },
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID!,
