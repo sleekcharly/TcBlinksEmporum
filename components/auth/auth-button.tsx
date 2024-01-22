@@ -17,8 +17,6 @@ const AuthButton = ({ asChild, user }: Props) => {
     logout();
   };
 
-  console.log(user);
-
   if (user) {
     return (
       <Button variant="link" onClick={onClick}>
