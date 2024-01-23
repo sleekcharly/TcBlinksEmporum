@@ -5,10 +5,13 @@ import { Shirt, ShoppingBag } from 'lucide-react';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { Button } from '../ui/button';
+import { useCurrentUser } from '@/hooks/use-current-user';
 
 type Props = {};
 
 const MobileMenu = (props: Props) => {
+  const user = useCurrentUser();
+
   // set state for hamburger menu
   const [isNavOpen, setIsNavOpen] = useState(false);
 
@@ -51,21 +54,26 @@ const MobileMenu = (props: Props) => {
           </div>
 
           <div className="flex flex-col  min-h-[250px] p-6 mt-16">
-            <p className="uppercase text-sm font-bold my-3">Account</p>
-            <hr className="bg-red-500" />
-            <ul className="uppercase text-base ml-5 my-3 space-y-3">
-              <li className="mt-1 font-light">
-                <Link href="/account">Account</Link>
-              </li>
+            {user && (
+              <>
+                <p className="uppercase text-sm font-bold my-3">Account</p>
+                <hr className="bg-red-500" />
+                <ul className="uppercase text-base ml-5 my-3 space-y-3">
+                  <li className="mt-1 font-light">
+                    <Link href="/account">Account</Link>
+                  </li>
 
-              <li className="mt-1 font-light">
-                <Link href="/orders">My Orders</Link>
-              </li>
+                  <li className="mt-1 font-light">
+                    <Link href="/orders">My Orders</Link>
+                  </li>
 
-              <li className="mt-1 font-light">
-                <Link href="/saved-items">Saved Items</Link>
-              </li>
-            </ul>
+                  <li className="mt-1 font-light">
+                    <Link href="/saved-items">Saved Items</Link>
+                  </li>
+                </ul>
+              </>
+            )}
+
             <p className="uppercase text-sm font-bold my-3">Our Categories</p>
             <hr className="bg-red-500" />
             <span className="uppercase flex items-center space-x-2 font-semibold mt-3">
@@ -92,7 +100,15 @@ const MobileMenu = (props: Props) => {
               ))}
             </ul>
 
-            <Button>SIGN IN</Button>
+            {user ? (
+              <Button className="mt-5" onClick={() => setIsNavOpen(false)}>
+                LOGOUT
+              </Button>
+            ) : (
+              <Button className="mt-5" onClick={() => setIsNavOpen(false)}>
+                <Link href="/auth/login">SIGN IN</Link>
+              </Button>
+            )}
           </div>
         </div>
       </section>
