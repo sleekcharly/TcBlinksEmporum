@@ -7,7 +7,7 @@ import Logo from '../logo';
 import * as z from 'zod';
 import { useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
-import { LoginSchema } from '@/schemas';
+import { RegisterSchema } from '@/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Form,
@@ -22,10 +22,7 @@ import Link from 'next/link';
 import { Button } from '../ui/button';
 import Socials from './socials';
 
-const LoginForm = () => {
-  // search parameters from url
-  const searchParams = useSearchParams();
-
+const RegisterForm = () => {
   // pending state from react
   const [isPending, startTransition] = useTransition();
 
@@ -33,11 +30,13 @@ const LoginForm = () => {
   const [error, setError] = useState<string | undefined>('');
   const [success, setSuccess] = useState<string | undefined>('');
 
-  const form = useForm<z.infer<typeof LoginSchema>>({
-    resolver: zodResolver(LoginSchema),
+  const form = useForm<z.infer<typeof RegisterSchema>>({
+    resolver: zodResolver(RegisterSchema),
     defaultValues: {
       email: '',
       password: '',
+      first_name: '',
+      last_name: '',
     },
   });
 
@@ -49,16 +48,56 @@ const LoginForm = () => {
             <Logo />
           </div>
 
-          <p className="text-sm">Welcome Back 😃</p>
+          <p className="text-sm">Welcome to TC Blinks Emporium</p>
         </div>
       </CardHeader>
 
       <CardContent>
-        <div className="mb-10">
-          <p className="text-xs mb-3">I already have an account?</p>
+        <div className="mb-5">
+          <p className="text-xs mb-3">Create an account?</p>
           <Form {...form}>
             <form className="space-y-6 mb-3">
               <div className="space-y-4">
+                <FormField
+                  control={form.control}
+                  name="first_name"
+                  render={({ field }) => (
+                    <>
+                      <FormItem>
+                        <FormLabel>First Name</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            disabled={isPending}
+                            placeholder="Enter your first name!"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    </>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="last_name"
+                  render={({ field }) => (
+                    <>
+                      <FormItem>
+                        <FormLabel>Last Name</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            disabled={isPending}
+                            placeholder="Enter your last name!"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    </>
+                  )}
+                />
+
                 <FormField
                   control={form.control}
                   name="email"
@@ -96,16 +135,6 @@ const LoginForm = () => {
                           />
                         </FormControl>
                         <FormMessage />
-                        <Button
-                          size="sm"
-                          variant="link"
-                          asChild
-                          className="px-0 font-normal"
-                        >
-                          <Link href="/auth/reset" className="text-sm">
-                            Forgot password?
-                          </Link>
-                        </Button>
                       </FormItem>
                     </>
                   )}
@@ -113,7 +142,7 @@ const LoginForm = () => {
               </div>
 
               <Button type="submit" className="w-full" disabled={isPending}>
-                Sign in
+                Register
               </Button>
             </form>
           </Form>
@@ -123,16 +152,12 @@ const LoginForm = () => {
 
       <CardFooter>
         <div className="w-full">
-          <hr className="mb-10" />
+          <hr className="mb-5" />
 
-          <p className="text-xs mb-3">I don't have an account ?</p>
-          <p className="text-sm mb-5">
-            Enjoy added benefits and a richer experience by creating a personal
-            account
-          </p>
+          <p className="text-xs mb-3">I have an account ?</p>
 
           <Button className="w-full">
-            <Link href="/auth/register">Create My Account</Link>
+            <Link href="/auth/login">Sign In</Link>
           </Button>
         </div>
       </CardFooter>
@@ -140,4 +165,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default RegisterForm;
