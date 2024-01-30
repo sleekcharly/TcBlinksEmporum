@@ -1,18 +1,16 @@
 // authentication configuration file
 
-import Google from 'next-auth/providers/google';
-import Facebook from 'next-auth/providers/facebook';
-import Credentials from 'next-auth/providers/credentials';
-
 import NextAuth from 'next-auth';
 import { adminAuth, adminDb } from './lib/firebase-admin';
 import { FirestoreAdapter } from '@auth/firebase-adapter';
-import { LoginSchema } from './schemas';
+
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import { getUserByEmailRef, getUserByIdRef } from './data/User';
-import bcrypt from 'bcryptjs';
+import { getUserByIdRef } from './data/User';
+
 import { UserRole } from './lib';
 import { db } from './lib/firebase';
+
+import authConfig from './auth.config';
 
 export const {
   handlers: { GET, POST },
@@ -33,7 +31,7 @@ export const {
       return true;
     },
 
-    async session({ token, session }) {
+    async session({ session, token }) {
       if (token.sub && session.user) {
         session.user.id = token.sub;
 
@@ -78,40 +76,12 @@ export const {
       token.email = existingUser.email;
       token.role = existingUser.role;
 
+      console.log(token);
+
       return token;
     },
   },
   adapter: FirestoreAdapter(adminDb),
   session: { strategy: 'jwt' },
-  providers: [
-    Google({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    }),
-    Facebook({
-      clientId: process.env.FACEBOOK_CLIENT_ID!,
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET!,
-    }),
-    Credentials({
-      async authorize(credentials) {
-        const validatedFields = LoginSchema.safeParse(credentials);
-
-        if (validatedFields.success) {
-          const { email, password } = validatedFields.data;
-
-          const querySnapshot = await getDocs(getUserByEmailRef(email));
-
-          const user = querySnapshot.docs[0].data();
-
-          if (querySnapshot.empty || !user.password) return null;
-
-          const passwordMatch = await bcrypt.compare(password, user.password);
-
-          if (passwordMatch) return user;
-        }
-
-        return null;
-      },
-    }),
-  ],
+  ...authConfig,
 });

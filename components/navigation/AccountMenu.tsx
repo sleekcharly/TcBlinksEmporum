@@ -13,6 +13,7 @@ import { Button } from '../ui/button';
 import { ChevronDownIcon, UserIcon } from 'lucide-react';
 import { useCurrentUser } from '@/hooks/use-current-user';
 import Link from 'next/link';
+import { logout } from '@/actions/logout';
 
 const AccountMenu = () => {
   const user = useCurrentUser();
@@ -29,7 +30,9 @@ const AccountMenu = () => {
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           {user ? (
-            <Button variant="link">LOGOUT</Button>
+            <Button variant="link" onClick={() => logout()}>
+              LOGOUT
+            </Button>
           ) : (
             <Button variant="link">
               <Link href="/auth/login">SIGN IN</Link>

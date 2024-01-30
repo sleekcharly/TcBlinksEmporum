@@ -5,7 +5,7 @@ import { Card, CardContent, CardFooter, CardHeader } from '../ui/card';
 import Logo from '../logo';
 
 import * as z from 'zod';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { RegisterSchema } from '@/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -21,6 +21,9 @@ import { Input } from '../ui/input';
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import Socials from './socials';
+import { register } from '@/actions/register';
+import { FormError } from '../form-error';
+import { FormSuccess } from '../form-success';
 
 const RegisterForm = () => {
   // pending state from react
@@ -40,6 +43,28 @@ const RegisterForm = () => {
     },
   });
 
+  // set router component
+  const router = useRouter();
+
+  // submit function
+  const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
+    setError('');
+    setSuccess('');
+
+    startTransition(() => {
+      register(values)
+        .then((data) => {
+          setError(data.error);
+          setSuccess(data.success);
+        })
+        .then(() => {
+          setTimeout(() => {
+            router.push(`${process.env.NEXT_PUBLIC_APP_URL}/auth/login`);
+          }, 3000);
+        });
+    });
+  };
+
   return (
     <Card className="w-[90%] mx-auto mt-5 lg:w-[600px] shadow-md">
       <CardHeader>
@@ -56,7 +81,10 @@ const RegisterForm = () => {
         <div className="mb-5">
           <p className="text-xs mb-3">Create an account?</p>
           <Form {...form}>
-            <form className="space-y-6 mb-3">
+            <form
+              className="space-y-6 mb-3"
+              onSubmit={form.handleSubmit(onSubmit)}
+            >
               <div className="space-y-4">
                 <FormField
                   control={form.control}
@@ -140,6 +168,9 @@ const RegisterForm = () => {
                   )}
                 />
               </div>
+
+              <FormError message={error} />
+              <FormSuccess message={success} />
 
               <Button type="submit" className="w-full" disabled={isPending}>
                 Register

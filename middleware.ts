@@ -1,6 +1,6 @@
 import NextAuth from 'next-auth';
 
-import { auth } from './auth';
+import authConfig from './auth.config';
 
 // routes
 import {
@@ -9,6 +9,8 @@ import {
   authRoutes,
   publicRoutes,
 } from './routes';
+
+const { auth } = NextAuth(authConfig);
 
 export default auth((req) => {
   const { nextUrl } = req;
