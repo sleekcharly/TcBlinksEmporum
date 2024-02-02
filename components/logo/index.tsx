@@ -9,7 +9,7 @@ type Props = {};
 const Logo = (props: Props) => {
   return (
     <Link
-      href="/"
+      href={`${process.env.NEXTAUTH_URL}`}
       prefetch={false}
       className="flex items-center cursor-pointer"
     >
@@ -22,7 +22,7 @@ const Logo = (props: Props) => {
             priority
             src={logo}
             alt="TC Blinks Logo"
-            className="dark: filter dark:invert"
+            className="dark:filter dark:invert"
           />
         </AspectRatio>
       </div>

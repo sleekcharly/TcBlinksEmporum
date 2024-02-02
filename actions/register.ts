@@ -9,7 +9,6 @@ import { addDoc, getDocs, collection } from 'firebase/firestore';
 import { getUserByEmailRef } from '@/data/User';
 import { db } from '@/lib/firebase';
 import { generateVerificationToken } from '@/lib/tokens';
-import { sendVerificationEmail } from '@/lib/mail';
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
   // validate form fields
@@ -48,11 +47,28 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
   const verificationToken = await generateVerificationToken(email);
 
   // send verification token email
-  await sendVerificationEmail(
-    verificationToken.email,
-    verificationToken.token,
-    first_name,
-  );
+  try {
+    await fetch(`${process.env.NEXTAUTH_URL}/api/verify-email`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: verificationToken.email,
+        token: verificationToken.token,
+        first_name,
+      }),
+    })
+      .then(() => {
+        console.log('Verification email sent successfully!');
+      })
+      .catch((err) => {
+        console.error(err);
+      });
 
-  return { success: 'Successful! Check your email for verification' };
+    return { success: 'Successful! Check your email for verification!' };
+  } catch (error) {
+    console.error(error);
+    return { error: 'Server error, please try again!' };
+  }
 };
