@@ -16,10 +16,10 @@ export const VerifyEmail = ({ first_name, confirmLink }: Props) => {
         <img src="http://localhost:3000/_next/static/media/logo.89a37f5d.svg" alt="TC Blinks logo"/>
       </section>
       
-      <header style="font-size:20px; line-height:2rem; font-weight:bold; text-align:center; padding:0px; margin-top:2rem; margin-bottom:2rem; margin-left:0px; margin-right:0px;">
+      <h1 style="font-size:20px; line-height:2rem; font-weight:bold; text-align:center; padding:0px; margin-top:2rem; margin-bottom:2rem; margin-left:0px; margin-right:0px;">
 
-        Welcome to <strong>TCBlinks Emporium</strong>, ${first_name}
-      </header>
+        Welcome to <strong>TCBlinks Emporium<, ${first_name}/strong>
+      </h1>
       
       <p style="font-size:0.875rem; line-height:1.25rem;">
         We're excited to have you onboard at <strong>TCBlinks Emporium</strong>.

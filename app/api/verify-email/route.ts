@@ -11,7 +11,6 @@ export async function POST(req: Request) {
   const resend = new Resend(process.env.RESEND_API_KEY);
 
   const confirmLink = `${process.env.NEXT_PUBLIC_APP_URL}/auth/new-verification?token=${token}`;
-  console.log(confirmLink);
 
   const emailData = VerifyEmail({
     first_name,
@@ -29,8 +28,6 @@ export async function POST(req: Request) {
     // console.error('error', error);
     return Response.json({ error });
   }
-
-  console.log('data', data);
 
   return Response.json(data);
 }

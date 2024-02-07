@@ -46,24 +46,6 @@ const RegisterForm = () => {
   // set router component
   const router = useRouter();
 
-  // send verification email
-  //   const sendVerificationEmail = async (
-  //     email: string,
-  //     first_name: string,
-  //     confirmLink: string,
-  //   ) => {
-  //     const resend = new Resend('re_C3ek7zH6_EvRjpZ3WHd4MrCFtn65ymU3K');
-
-  //     await resend.emails.send({
-  //       from: 'TCBlinks <onboarding@resend.dev>',
-  //       to: email,
-  //       subject: 'Confirm your email',
-  //       react: VerifyEmail({ first_name, confirmLink }),
-  //     });
-
-  //     console.log('successful');
-  //   };
-
   // submit function
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
     setError('');
@@ -88,40 +70,12 @@ const RegisterForm = () => {
             }),
           });
 
-          console.log('response', res);
-
           if (!res.ok) {
             // throw error
             throw new Error('Failed to send verification email');
           } else {
             setSuccess('Successful! Check your email for verification!');
           }
-
-          //   try {
-          //     await fetch(`${process.env.NEXTAUTH_URL}/api/send`, {
-          //       method: 'POST',
-          //       headers: {
-          //         'Content-Type': 'application/json',
-          //       },
-          //       body: JSON.stringify({
-          //         email: data.verificationToken.email,
-          //         token: data.verificationToken.token,
-          //         first_name,
-          //       }),
-          //     })
-          //       .then(() => {
-          //         console.log('Verification email sent successfully!');
-          //         setSuccess('Successful! Check your email for verification!');
-          //       })
-          //       .then(() => {
-          //         setTimeout(() => {
-          //           router.push(`${process.env.NEXT_PUBLIC_APP_URL}/auth/login`);
-          //         }, 3000);
-          //       });
-          //   } catch (error) {
-          //     console.error(error);
-          //     setError('Server error, please try again!');
-          //   }
         }
       });
     });
