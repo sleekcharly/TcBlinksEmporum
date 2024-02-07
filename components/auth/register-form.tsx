@@ -79,6 +79,11 @@ const RegisterForm = () => {
         }
       });
     });
+
+    success &&
+      setTimeout(() => {
+        router.push(`${process.env.NEXT_PUBLIC_APP_URL}/auth/login`);
+      }, 3000);
   };
 
   return (
