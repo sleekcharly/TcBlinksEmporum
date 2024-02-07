@@ -76,8 +76,6 @@ export const {
       token.email = existingUser.email;
       token.role = existingUser.role;
 
-      console.log(token);
-
       return token;
     },
   },

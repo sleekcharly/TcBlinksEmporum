@@ -27,7 +27,6 @@ export const login = async (
   const userQuerySnapshot = await getDocs(getUserByEmailRef(email));
 
   const existingUser = userQuerySnapshot.docs[0].data();
-  console.log('user', existingUser);
 
   if (
     userQuerySnapshot.empty ||
