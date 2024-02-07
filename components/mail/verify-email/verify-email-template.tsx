@@ -18,7 +18,7 @@ export const VerifyEmail = ({ first_name, confirmLink }: Props) => {
       
       <h1 style="font-size:20px; line-height:2rem; font-weight:bold; text-align:center; padding:0px; margin-top:2rem; margin-bottom:2rem; margin-left:0px; margin-right:0px;">
 
-        Welcome to <strong>TC Blinks Emporium<, ${first_name}</strong>
+        Welcome to <strong>TC Blinks Emporium, ${first_name}</strong>
       </h1>
       
       <p style="font-size:0.875rem; line-height:1.25rem;">

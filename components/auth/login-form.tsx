@@ -21,10 +21,16 @@ import { Input } from '../ui/input';
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import Socials from './socials';
+import { login } from '@/actions/login';
+import { FormError } from '../form-error';
+import { FormSuccess } from '../form-success';
 
 const LoginForm = () => {
   // search parameters from url
   const searchParams = useSearchParams();
+
+  // set callbackUrl
+  const callbackUrl = searchParams.get('callbackUrl');
 
   // pending state from react
   const [isPending, startTransition] = useTransition();
@@ -40,6 +46,28 @@ const LoginForm = () => {
       password: '',
     },
   });
+
+  // submit function
+  const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+    setError('');
+    setSuccess('');
+
+    startTransition(() => {
+      login(values, callbackUrl)
+        .then((data) => {
+          if (data?.error) {
+            form.reset();
+            setError(data.error);
+          }
+
+          if (data?.success) {
+            form.reset();
+            setSuccess(data.success);
+          }
+        })
+        .catch(() => setError('Something went wrong!'));
+    });
+  };
 
   return (
     <Card className="w-[90%] mx-auto mt-5 lg:w-[600px] shadow-md">
@@ -57,7 +85,10 @@ const LoginForm = () => {
         <div className="mb-10">
           <p className="text-xs mb-3">I already have an account?</p>
           <Form {...form}>
-            <form className="space-y-6 mb-3">
+            <form
+              className="space-y-6 mb-3"
+              onSubmit={form.handleSubmit(onSubmit)}
+            >
               <div className="space-y-4">
                 <FormField
                   control={form.control}
@@ -111,6 +142,9 @@ const LoginForm = () => {
                   )}
                 />
               </div>
+
+              <FormError message={error} />
+              <FormSuccess message={success} />
 
               <Button type="submit" className="w-full" disabled={isPending}>
                 Sign in
