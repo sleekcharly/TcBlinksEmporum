@@ -58,7 +58,7 @@ const RegisterForm = () => {
         // send verification token email
         if (data.verificationToken) {
           const first_name = data.first_name;
-          const res = await fetch(`/api/verify-email`, {
+          const res = await fetch(`/api/auth/verify-email`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
