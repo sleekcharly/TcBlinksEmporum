@@ -41,19 +41,19 @@ export default auth((req) => {
   }
 
   // return user to last visited page before logging in
-  if (!isLoggedIn && !isPublicRoute) {
-    let callbackUrl = nextUrl.pathname;
-    if (nextUrl.search) {
-      callbackUrl += nextUrl.search;
-    }
+  //   if (!isLoggedIn && !isPublicRoute) {
+  //     let callbackUrl = nextUrl.pathname;
+  //     if (nextUrl.search) {
+  //       callbackUrl += nextUrl.search;
+  //     }
 
-    // encode callback url
-    const encodedCallbackUrl = encodeURIComponent(callbackUrl);
+  //     // encode callback url
+  //     const encodedCallbackUrl = encodeURIComponent(callbackUrl);
 
-    return Response.redirect(
-      new URL(`/auth/login?callbackUrl=${encodedCallbackUrl}`, nextUrl),
-    );
-  }
+  //     return Response.redirect(
+  //       new URL(`/auth/login?callbackUrl=${encodedCallbackUrl}`, nextUrl),
+  //     );
+  //   }
 
   return null;
 });

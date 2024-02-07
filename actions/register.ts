@@ -46,29 +46,5 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
   // generate token for email verification
   const verificationToken = await generateVerificationToken(email);
 
-  // send verification token email
-  try {
-    await fetch(`${process.env.NEXTAUTH_URL}/api/verify-email`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: verificationToken.email,
-        token: verificationToken.token,
-        first_name,
-      }),
-    })
-      .then(() => {
-        console.log('Verification email sent successfully!');
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-
-    return { success: 'Successful! Check your email for verification!' };
-  } catch (error) {
-    console.error(error);
-    return { error: 'Server error, please try again!' };
-  }
+  return { verificationToken, first_name };
 };
