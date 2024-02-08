@@ -65,7 +65,7 @@ const RegisterForm = () => {
             },
             body: JSON.stringify({
               email: data.verificationToken.email,
-              token: data.verificationToken,
+              token: data.verificationToken.token,
               first_name,
             }),
           });
@@ -75,15 +75,14 @@ const RegisterForm = () => {
             throw new Error('Failed to send verification email');
           } else {
             setSuccess('Successful! Check your email for verification!');
+
+            setTimeout(() => {
+              router.push(`${process.env.NEXT_PUBLIC_APP_URL}/auth/login`);
+            }, 3000);
           }
         }
       });
     });
-
-    success &&
-      setTimeout(() => {
-        router.push(`${process.env.NEXT_PUBLIC_APP_URL}/auth/login`);
-      }, 3000);
   };
 
   return (

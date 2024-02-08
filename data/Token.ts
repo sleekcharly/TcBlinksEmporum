@@ -53,3 +53,9 @@ export const getVerificationTokenByIdRef = (id: string) =>
     collection(db, 'verificationToken'),
     where('id', '==', id),
   ).withConverter(tokenConverter);
+
+export const getVerificationTokenByTokenRef = (token: string) =>
+  query(
+    collection(db, 'verificationToken'),
+    where('token', '==', token),
+  ).withConverter(tokenConverter);
