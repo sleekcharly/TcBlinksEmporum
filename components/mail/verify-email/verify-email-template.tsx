@@ -1,8 +1,4 @@
 import * as React from 'react';
-import Logo from '../../logo';
-import { Button } from '../../ui/button';
-import Link from 'next/link';
-import logo from '@logos/logo.svg';
 
 type Props = {
   first_name: string;

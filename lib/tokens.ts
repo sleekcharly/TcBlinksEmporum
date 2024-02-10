@@ -1,4 +1,8 @@
-import { getVerificationTokenByEmailRef, tokenConverter } from '@/data/Token';
+import {
+  getPasswordResetTokenByEmailRef,
+  getVerificationTokenByEmailRef,
+  tokenConverter,
+} from '@/data/Token';
 import crypto from 'crypto';
 import { deleteDoc, doc, getDocs, setDoc } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
@@ -44,4 +48,47 @@ export const generateVerificationToken = async (email: string) => {
   };
 
   return verificationToken;
+};
+
+// generate password reset token
+export const generatePasswordResetToken = async (email: string) => {
+  const token = uuidv4();
+
+  // generate random id;
+  const tokenId = uuidv4();
+
+  const expires = new Date(new Date().getTime() + 3600 * 1000);
+
+  const tokenQuerySnapshot = await getDocs(
+    getPasswordResetTokenByEmailRef(email),
+  );
+
+  if (!tokenQuerySnapshot.empty) {
+    const existingToken = tokenQuerySnapshot.docs[0].data();
+
+    await deleteDoc(doc(db, 'passwordResetToken', existingToken.id));
+  }
+
+  // set ref for password reset token
+  const passwordResetTokenRef = doc(
+    db,
+    'passwordResetToken',
+    tokenId,
+  ).withConverter(tokenConverter);
+
+  await setDoc(passwordResetTokenRef, {
+    id: tokenId,
+    email,
+    token,
+    expires,
+  });
+
+  const passwordResetToken = {
+    id: tokenId,
+    email,
+    token,
+    expires,
+  };
+
+  return passwordResetToken;
 };

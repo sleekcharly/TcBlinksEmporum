@@ -59,3 +59,9 @@ export const getVerificationTokenByTokenRef = (token: string) =>
     collection(db, 'verificationToken'),
     where('token', '==', token),
   ).withConverter(tokenConverter);
+
+export const getPasswordResetTokenByEmailRef = (email: string) =>
+  query(
+    collection(db, 'passwordResetToken'),
+    where('email', '==', email),
+  ).withConverter(tokenConverter);

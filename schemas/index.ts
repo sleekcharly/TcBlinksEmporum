@@ -15,3 +15,9 @@ export const RegisterSchema = z.object({
   first_name: z.string().min(1, { message: 'lPease enter your first name' }),
   last_name: z.string().min(1, { message: 'Please enter your last name' }),
 });
+
+export const ResetSchema = z.object({
+  email: z.string().email({
+    message: 'Email is required!',
+  }),
+});
