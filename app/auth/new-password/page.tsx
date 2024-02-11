@@ -1,9 +1,9 @@
-import { NewVerificationForm } from '@/components/auth/new-verification-form';
+import { NewPasswordForm } from '@/components/auth/new-password';
 import Image from 'next/image';
 import darkImage from '../../../images/backgrounds/verify-email-dark.jpg';
 import lightImage from '../../../images/backgrounds/verify-email-light.jpg';
 
-const NewVerificationPage = () => {
+const NewPassword = () => {
   return (
     <div className="relative w-full h-screen flex items-center justify-center">
       <Image
@@ -21,10 +21,10 @@ const NewVerificationPage = () => {
         priority
       />
       <div className="z-10 w-full">
-        <NewVerificationForm />
+        <NewPasswordForm />
       </div>
     </div>
   );
 };
 
-export default NewVerificationPage;
+export default NewPassword;

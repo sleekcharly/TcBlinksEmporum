@@ -1,9 +1,15 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { Card, CardContent, CardHeader } from '../ui/card';
-
+import { NewPasswordSchema } from '@/schemas';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Poppins } from 'next/font/google';
+import { useSearchParams } from 'next/navigation';
+import { useState, useTransition } from 'react';
+import { useForm } from 'react-hook-form';
+
+import * as z from 'zod';
+import { Card, CardContent, CardHeader } from '../ui/card';
 import {
   Form,
   FormControl,
@@ -16,57 +22,42 @@ import { Input } from '../ui/input';
 import { FormError } from '../form-error';
 import { FormSuccess } from '../form-success';
 import { Button } from '../ui/button';
-import { useEffect, useState, useTransition } from 'react';
-import { useForm } from 'react-hook-form';
-import * as z from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { ResetSchema } from '@/schemas';
-import { reset } from '@/actions/reset';
-import { useRouter } from 'next/navigation';
 
 const font = Poppins({
   subsets: ['latin'],
   weight: ['600'],
 });
 
-export const ResetForm = () => {
-  const router = useRouter();
+export const NewPasswordForm = () => {
+  const searchParams = useSearchParams();
 
-  // form transition
+  // extract token from search parameters
+  const token = searchParams.get('token');
+
+  // get pending and transition states
   const [isPending, startTransition] = useTransition();
 
   // component state
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
 
-  const form = useForm<z.infer<typeof ResetSchema>>({
-    resolver: zodResolver(ResetSchema),
+  const form = useForm<z.infer<typeof NewPasswordSchema>>({
+    resolver: zodResolver(NewPasswordSchema),
     defaultValues: {
-      email: '',
+      password: '',
     },
   });
 
-  const onSubmit = (values: z.infer<typeof ResetSchema>) => {
+  // submit function
+  const onSubmit = (values: z.infer<typeof NewPasswordSchema>) => {
     setError('');
     setSuccess('');
 
-    startTransition(() => {
-      reset(values).then((data) => {
-        setError(data?.error);
-        setSuccess(data?.success);
-      });
-    });
+    startTransition(() => {});
   };
 
-  useEffect(() => {
-    success &&
-      setTimeout(() => {
-        router.push(`${process.env.NEXTAUTH_URL}/auth/login`);
-      }, 3000);
-  }, [success]);
-
   return (
-    <Card className="w-[90%] md:w-[600px] shadow-md dark:bg-gray-100 dark:text-gray-900 mx-5 my-auto md:mx-auto">
+    <Card className="w-[90%] md:w-[600px] shadow-md dark:bg-gray-100 dark:text-gray-900  mx-5 my-auto md:mx-auto">
       <CardHeader>
         <div className="w-full flex flex-col gap-y-4 items-center justify-center">
           <h1
@@ -75,10 +66,12 @@ export const ResetForm = () => {
               font.className,
             )}
           >
-            🗝️ Forgot your password?
+            🗝️ Reset your password?
           </h1>
 
-          <p className="text-sm md:text-base lg:text-xl">Let's fix this </p>
+          <p className="text-sm md:text-base lg:text-xl">
+            Enter a new password.{' '}
+          </p>
         </div>
       </CardHeader>
       <CardContent>
@@ -87,16 +80,17 @@ export const ResetForm = () => {
             <div className="space-y-4">
               <FormField
                 control={form.control}
-                name="email"
+                name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel className="text-sm lg:text-base">
+                      Password
+                    </FormLabel>
                     <FormControl>
                       <Input
                         {...field}
                         disabled={isPending}
-                        placeholder="Enter your email!"
-                        type="email"
+                        type="password"
                         className="dark:text-white"
                       />
                     </FormControl>
@@ -113,7 +107,7 @@ export const ResetForm = () => {
                 className="w-full dark:bg-blue-500 font-bold"
                 disabled={isPending}
               >
-                Send reset Email
+                Reset Password
               </Button>
             </div>
           </form>
