@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import { NewPasswordSchema } from '@/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Poppins } from 'next/font/google';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -22,6 +22,7 @@ import { Input } from '../ui/input';
 import { FormError } from '../form-error';
 import { FormSuccess } from '../form-success';
 import { Button } from '../ui/button';
+import { newPassword } from '@/actions/new-password';
 
 const font = Poppins({
   subsets: ['latin'],
@@ -30,6 +31,8 @@ const font = Poppins({
 
 export const NewPasswordForm = () => {
   const searchParams = useSearchParams();
+
+  const router = useRouter();
 
   // extract token from search parameters
   const token = searchParams.get('token');
@@ -53,7 +56,14 @@ export const NewPasswordForm = () => {
     setError('');
     setSuccess('');
 
-    startTransition(() => {});
+    startTransition(() => {
+      newPassword(values, token).then((data) => {
+        data.success ? setSuccess(data?.success) : setError(data?.error);
+        setTimeout(() => {
+          router.push(`${process.env.NEXT_PUBLIC_APP_URL}/auth/login`);
+        }, 2500);
+      });
+    });
   };
 
   return (
