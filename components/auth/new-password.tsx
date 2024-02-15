@@ -23,6 +23,7 @@ import { FormError } from '../form-error';
 import { FormSuccess } from '../form-success';
 import { Button } from '../ui/button';
 import { newPassword } from '@/actions/new-password';
+import { ClipLoader } from 'react-spinners';
 
 const font = Poppins({
   subsets: ['latin'],
@@ -114,10 +115,11 @@ export const NewPasswordForm = () => {
 
               <Button
                 type="submit"
-                className="w-full dark:bg-blue-500 font-bold"
+                className="w-full dark:bg-blue-500 font-bold flex items-center space-x-2"
                 disabled={isPending}
               >
-                Reset Password
+                <span>Reset Password</span>
+                {isPending && <ClipLoader size={20} color={'aqua'} />}
               </Button>
             </div>
           </form>

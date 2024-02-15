@@ -23,6 +23,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ResetSchema } from '@/schemas';
 import { reset } from '@/actions/reset';
 import { useRouter } from 'next/navigation';
+import { ClipLoader } from 'react-spinners';
 
 const font = Poppins({
   subsets: ['latin'],
@@ -110,10 +111,11 @@ export const ResetForm = () => {
 
               <Button
                 type="submit"
-                className="w-full dark:bg-blue-500 font-bold"
+                className="w-full dark:bg-blue-500 font-bold flex items-center space-x-2"
                 disabled={isPending}
               >
-                Send reset Email
+                <span>Send reset Email</span>
+                {isPending && <ClipLoader size={20} color={'aqua'} />}
               </Button>
             </div>
           </form>

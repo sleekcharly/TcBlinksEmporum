@@ -34,9 +34,11 @@ const AccountMenu = () => {
               LOGOUT
             </Button>
           ) : (
-            <Button variant="link">
-              <Link href="/auth/login">SIGN IN</Link>
-            </Button>
+            <DropdownMenuItem role="button" className="cursor-pointer" asChild>
+              <Button variant="link" asChild>
+                <Link href="/auth/login">SIGN IN</Link>
+              </Button>
+            </DropdownMenuItem>
           )}
 
           <DropdownMenuSeparator />

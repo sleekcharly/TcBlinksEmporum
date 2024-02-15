@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader } from '../ui/card';
 import { Poppins } from 'next/font/google';
-import { BeatLoader, BounceLoader } from 'react-spinners';
+import { BounceLoader } from 'react-spinners';
 
 import { cn } from '@/lib/utils';
 import { FormSuccess } from '../form-success';

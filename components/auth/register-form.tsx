@@ -24,6 +24,7 @@ import Socials from './socials';
 import { register } from '@/actions/register';
 import { FormError } from '../form-error';
 import { FormSuccess } from '../form-success';
+import { ClipLoader } from 'react-spinners';
 
 const RegisterForm = () => {
   // pending state from react
@@ -192,8 +193,13 @@ const RegisterForm = () => {
               <FormError message={error} />
               <FormSuccess message={success} />
 
-              <Button type="submit" className="w-full" disabled={isPending}>
-                Register
+              <Button
+                type="submit"
+                className="w-full flex items-center space-x-2"
+                disabled={isPending}
+              >
+                <span>Register</span>
+                {isPending && <ClipLoader color={'olive'} size={20} />}
               </Button>
             </form>
           </Form>
