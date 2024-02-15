@@ -6,6 +6,7 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { Button } from '../ui/button';
 import { useCurrentUser } from '@/hooks/use-current-user';
+import { logout } from '@/actions/logout';
 
 type Props = {};
 
@@ -14,6 +15,12 @@ const MobileMenu = (props: Props) => {
 
   // set state for hamburger menu
   const [isNavOpen, setIsNavOpen] = useState(false);
+
+  // logout functionality
+  const onLogout = () => {
+    setIsNavOpen(false);
+    logout();
+  };
 
   return (
     <nav>
@@ -101,7 +108,7 @@ const MobileMenu = (props: Props) => {
             </ul>
 
             {user ? (
-              <Button className="mt-5" onClick={() => setIsNavOpen(false)}>
+              <Button className="mt-5" onClick={() => onLogout()}>
                 LOGOUT
               </Button>
             ) : (
