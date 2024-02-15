@@ -3,8 +3,8 @@ import menPreview from '@previews/men-preview.jpg';
 import kidsPreview from '@previews/kids-preview.jpg';
 
 export enum UserRole {
-  ADMIN,
-  USER,
+  ADMIN = 'ADMIN',
+  USER = 'USER',
 }
 
 export const navOptions = [

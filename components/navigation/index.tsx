@@ -6,10 +6,22 @@ import CartNotification from './CartNotification';
 import AccountMenu from './AccountMenu';
 import SearchInput from './SearchInput';
 import MobileMenu from './MobileMenu';
+import { admin } from '@/actions/admin';
+import Link from 'next/link';
+import { Button } from '../ui/button';
 
-type Props = {};
+const Header = async () => {
+  const userAdmin = await admin().then((data) => {
+    if (data.success) {
+      return true;
+    } else {
+      return false;
+    }
+  });
 
-const Header = ({}: Props) => {
+  // get admin or user status
+  const isAdmin = userAdmin;
+
   return (
     <header className="sticky top-0 z-50 bg-white dark:bg-gray-900 w-full">
       <nav className="bg-white dark:bg-gray-900 max-w-screen  mx-auto p-4 ">
@@ -26,6 +38,14 @@ const Header = ({}: Props) => {
           <div className="flex items-center gap-4">
             {/* Account Menu */}
             <AccountMenu />
+
+            {/* user admin button */}
+            {isAdmin && (
+              <Link href={`${process.env.NEXTAUTH_URL}/my-admin`}>
+                <Button>My Admin</Button>
+              </Link>
+            )}
+
             {/* Cart count notification  */}
             <CartNotification />
             {/* dark  mode toggle */}

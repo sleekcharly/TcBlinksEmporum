@@ -8,6 +8,7 @@ import {
   QueryDocumentSnapshot,
   SnapshotOptions,
   collection,
+  doc,
   query,
   where,
 } from 'firebase/firestore';
@@ -47,6 +48,4 @@ export const getUserByEmailRef = (email: string) =>
   );
 
 export const getUserByIdRef = (id: string) =>
-  query(collection(db, 'users'), where('id', '==', id)).withConverter(
-    userConverter,
-  );
+  doc(db, 'users', id).withConverter(userConverter);
