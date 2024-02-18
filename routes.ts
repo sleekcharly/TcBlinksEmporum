@@ -18,6 +18,14 @@ export const authRoutes = [
 ];
 
 /**
+ * The prefix for Admin routes
+ * Routes that starts with this prefix are
+ * used for administrative purposes
+ * @type {string}
+ */
+export const adminPrefix = '/my-admin';
+
+/**
  * The prefix for API authentication routes.
  * Routes that start with this prefix are used for API
  * authentication purposes

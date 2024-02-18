@@ -53,6 +53,7 @@ export const {
       return true;
     },
 
+    // @ts-ignore
     async session({ token, session }) {
       if (token.sub && session.user) {
         session.user.id = token.sub;
