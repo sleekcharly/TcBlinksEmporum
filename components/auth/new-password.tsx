@@ -61,7 +61,7 @@ export const NewPasswordForm = () => {
       newPassword(values, token).then((data) => {
         data.success ? setSuccess(data?.success) : setError(data?.error);
         setTimeout(() => {
-          router.push(`${process.env.NEXT_PUBLIC_APP_URL}/auth/login`);
+          router.push(`${process.env.NEXTAUTH_URL}/auth/login`);
         }, 2500);
       });
     });

@@ -78,7 +78,7 @@ const RegisterForm = () => {
             setSuccess('Successful! Check your email for verification!');
 
             setTimeout(() => {
-              router.push(`${process.env.NEXT_PUBLIC_APP_URL}/auth/login`);
+              router.push(`${process.env.NEXTAUTH_URL}/auth/login`);
             }, 3000);
           }
         }
