@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <ClientProvider>
       <html lang="en">
-        <body className="flex flex-col min-h-screen">
+        <body className="flex flex-col min-h-screen dark:bg-[#0d1723]">
           <FirebaseAuthProvider>
             <ThemeProvider
               attribute="class"

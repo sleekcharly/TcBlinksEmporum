@@ -5,8 +5,8 @@ type Props = { isMobile?: boolean };
 const SearchInput = ({ isMobile = false }: Props) => {
   return (
     <form
-      className={`${!isMobile && 'hidden lg:block max-w-[600px]'} w-full ${
-        isMobile && 'block lg:hidden'
+      className={`${!isMobile && 'hidden xl:block max-w-[600px]'} w-full ${
+        isMobile && 'block xl:hidden'
       }  `}
     >
       <label

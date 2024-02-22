@@ -23,7 +23,7 @@ const Header = async () => {
   const isAdmin = userAdmin;
 
   return (
-    <header className="sticky top-0 z-50 bg-white dark:bg-gray-900 w-full">
+    <header className="sticky top-0 z-50 bg-white dark:bg-gray-900 w-full border border-b-2 border-b-gray-100 dark:border-b-gray-700">
       <nav className="bg-white dark:bg-gray-900 max-w-screen  mx-auto p-4 ">
         <div className="flex items-center justify-between gap-8">
           <div className="flex items-center justify-between gap-10">
@@ -41,7 +41,10 @@ const Header = async () => {
 
             {/* user admin button */}
             {isAdmin && (
-              <Link href={`${process.env.NEXTAUTH_URL}/my-admin`}>
+              <Link
+                href={`${process.env.NEXTAUTH_URL}/my-admin`}
+                className="hidden lg:block"
+              >
                 <Button>My Admin</Button>
               </Link>
             )}
