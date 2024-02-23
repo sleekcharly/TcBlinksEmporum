@@ -25,13 +25,13 @@ import {
 type Props = {};
 
 const Navbar = (props: Props) => {
-  const [fullNav, setFullNav] = useState(false);
+  const [fullNav, setFullNav] = useState(true);
 
   return (
     <div
       className={`flex flex-col ${
         !fullNav && 'text-center items-center w-20'
-      } gap-y-8 p-3 dark:bg-[#434957]  ${
+      } gap-y-8 p-3 bg-gray-200 dark:bg-[#434957]  ${
         fullNav && 'w-56'
       } overflow-y-scroll max-h-screen scroll-smooth`}
     >

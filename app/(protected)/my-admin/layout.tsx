@@ -11,7 +11,7 @@ const AdminLayout = ({ children }: props) => {
         <Navbar />
       </div>
 
-      <div>{children}</div>
+      <div className="flex-1">{children}</div>
     </div>
   );
 };
