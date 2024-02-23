@@ -4,6 +4,7 @@ import { FaCartArrowDown, FaPeopleCarry, FaSalesforce } from 'react-icons/fa';
 import { TbCurrencyNaira, TbSum } from 'react-icons/tb';
 import { FcSalesPerformance } from 'react-icons/fc';
 import { RiProductHuntFill, RiUserSmileFill } from 'react-icons/ri';
+import RevenueChart from '@/components/RevenueChart';
 
 type Props = {};
 
@@ -16,7 +17,7 @@ const page = (props: Props) => {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 mb-5">
         <StatBox
           title="450,000"
           subtitle="Total Sales"
@@ -46,6 +47,11 @@ const page = (props: Props) => {
           icon2={<RiUserSmileFill className="w-10 h-10" />}
         />
       </div>
+
+      {/* charts */}
+      <section className="">
+        <RevenueChart />
+      </section>
     </div>
   );
 };
